@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<?php session_start(); ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 	<head>
@@ -8,26 +8,18 @@
 	</head>
 	<body>
 		<div id="main">
-			<div id="top"><div style='float:left;position:relative;top:25px;'><h2>MyCoinWallet</h2></div><div class="logomargin"><img src='images/logo-mockup2.png' /></div></div>
+			<div id="top"><div style='float:left;position:relative;top:25px;'><h2>MyCoinWallet</h2></div></div>
 			<div id="wrapper">
 				<div id="content">
 					<div class="innermargin">
 						<h1>MyCoinWallet Account</h1>
 						<br />
-						<form>
-							Username: <input type="text" name="user" size="20"><br />
-							Password: <input type="password" name="pass" size="20"><br />
-							Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;<input type="text" name="email" size="20"><br />
-							<input type="submit" value="submit" /><br /><br />
 							<?php
-							$_SESSION['userid'] = 1;			// this is a substitute for a proper login system
-							$_SESSION['username'] = 'user1';
 							require_once('includes/config.php');
 							require_once('includes/jsonRPCClient.php');
 							require_once('includes/bcfunctions.php');
 							
-							$bitcoin = new jsonRPCClient('https://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);
+							$bitcoin = new jsonRPCClient('http://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);
 							
 							// check for session address
 							if(isset($_SESSION['sendaddress'])) {
@@ -39,7 +31,7 @@
 								$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
 								$_SESSION['sendaddress'] = $sendaddress;
 							}
-							
+							printf('DEUBG Wallet : ' . $_SESSION['sendaddress'] . '<br />');	
 							// save current balance
 							saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
 							
@@ -134,7 +126,7 @@
 								echo "<tr><td>&nbsp;</td></tr>";
 							}
 							?>
-						</table></form>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -145,7 +137,7 @@
 					<a href='deposit.php'>Deposit</a>
 					<a href='withdraw.php'>Withdraw</a>
 					<a href='contact.php'>Contact</a>
-					<a href='#'>Logout</a>
+					<a href='logout.php'>Logout</a>
 				</div>
 			</div>
 			<div id="footer"><a href="index.php">Home</a> | <a href="account.php">Account</a> | <a href="deposit.php">Deposit</a> | <a href="withdraw.php">Withdraw</a> | <a href="contact.php">Contact</a> | <a href="#">Logout</a> | </div>

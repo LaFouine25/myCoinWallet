@@ -13,4 +13,7 @@ define('PORT','xxxx');
 
 #define('SSL_CERT_PATH','/var/www/coin/includes/server.cert'); # probably best if this is a hardcoded full path
 
+// Divers variables conf.
+define('DEBUG', true);
+define('SITENAME', "SITENAME");
 ?>
