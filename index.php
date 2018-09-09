@@ -5,11 +5,6 @@ if ( isset($_SESSION['username']) )
 {
 	header('location:account.php');
 }
-
-if($_GET['logoff'] == "true")
-{
-	session_destroy();
-}
 require('includes/config.php');
 require_once('includes/dbconnect.php');
 ?> 
@@ -45,6 +40,7 @@ if ( isset($_GET['amuser']) && isset($_GET['ampass']) )
  
 		if($rs === false)
 		{
+			// Login/MDP erreur, on propose l'enregistrement.
 			if(DEBUG) { printf('DEBUG: SQL Co Err.'); }
 			trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
 		}

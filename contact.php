@@ -19,10 +19,13 @@ require_once('includes/bcfunctions.php');
 			<div id="wrapper">
 				<div id="content">
 					<div class="innermargin">
-						<h1><?php printf(SITENAME);?> Deposit</h1>
+						<h1><?php printf(SITENAME);?> Contact</h1>
 						<br />
-						To make a deposit, please send coins to the address below.<br />
-						Pour faire un dépôt, merci d'utiliser cette adresse. Les adresses précédentes sont également valable<br />
+						Pour contacter nos équipes, voici les différents moyen :<br />
+						<ul>
+							<li>Pour un bug sur le site : <a href=https://github.com/LaFouine25/myCoinWallet target=_blank>GitHub</a></li>
+							<li>Par mail : webmaster [ at ] alpha-mining [ dot ] fr</li>
+						</ul>
 						<?php
 						
 						$bitcoin = new jsonRPCClient('http://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);

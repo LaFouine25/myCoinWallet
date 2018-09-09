@@ -1,11 +1,18 @@
 Fork de myCoinWallet avec quelques modifications :
 
+Version 0.1.1
+- Ajout fichier INSTALL
+- Corrections Bug config.php
+- Ajout de contact.php
+
 FORK Version 0.1
 - Ajout d'un index.php pour Login
 - Ajout d'un logout.php pour Logout
 - Ajout de session_start() afin de pouvoir utiliser $_SESSION
 - Ajout d'un DBConnect.php pour connection à une BDD type Mysql/MariaDB
 - Suppression de l'image inexistante en entête
+
+***Cette version sera progressivement traduite en Français.***
 
 This is a basic php bitcoin wallet that uses the jsonRPCClient and curl to interface with the bitcoin client.
 It currently can create addresses, send and receive coins.

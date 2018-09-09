@@ -1,0 +1,5 @@
+HOW TO INSTALL
+
+- depuis votre répertoire Web (/var/web/ par exemple)
+- git clone https://github.com/LaFouine25/myCoinWallet.git
+- modifier le fichier includes/config.php

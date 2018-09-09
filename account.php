@@ -3,16 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<title>MyCoinWallet - Account</title>
+		<title><?php printf(SITENAME);?> - Account</title>
 		<link rel="stylesheet" href="css/styles.css"  type="text/css" />
 	</head>
 	<body>
 		<div id="main">
-			<div id="top"><div style='float:left;position:relative;top:25px;'><h2>MyCoinWallet</h2></div></div>
+			<div id="top"><div style='float:left;position:relative;top:25px;'><h2><?php printf(SITENAME);?></h2></div></div>
 			<div id="wrapper">
 				<div id="content">
 					<div class="innermargin">
-						<h1>MyCoinWallet Account</h1>
+						<h1><?php printf(SITENAME);?> Account</h1>
 						<br />
 							<?php
 							require_once('includes/config.php');
@@ -132,15 +132,15 @@
 			</div>
 			<div id="menu">
 				<div class="menumargin">
-					<a href='index.php'>Home</a>
-					<a href='account.php'>Account</a>
-					<a href='deposit.php'>Deposit</a>
-					<a href='withdraw.php'>Withdraw</a>
+					<a href='index.php'>Acceuil</a>
+					<a href='account.php'>Compte</a>
+					<a href='deposit.php'>Depos</a>
+					<a href='withdraw.php'>Transfert</a>
 					<a href='contact.php'>Contact</a>
 					<a href='logout.php'>Logout</a>
 				</div>
 			</div>
-			<div id="footer"><a href="index.php">Home</a> | <a href="account.php">Account</a> | <a href="deposit.php">Deposit</a> | <a href="withdraw.php">Withdraw</a> | <a href="contact.php">Contact</a> | <a href="#">Logout</a> | </div>
+			<div id="footer"><a href="index.php">Acceuil</a> | <a href="account.php">Compte</a> | <a href="deposit.php">Depos</a> | <a href="withdraw.php">Transfert</a> | <a href="contact.php">Contact</a> | <a href="#">Logout</a> | </div>
 		</div>
 	</body>
 </html>
