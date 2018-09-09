@@ -43,7 +43,7 @@ require_once('includes/bcfunctions.php');
 						if(DEBUG) printf("DEBUG: Enregistre en BDD le Wallet avec -> " . $DBReq);
 						}
 						
-						// save current balance
+						// Sauvegarde de la balance du Wallet
 						saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
 						echo "Votre Wallet courant : <b>" . $_SESSION['sendaddress'] . "</b><br />";
 						
