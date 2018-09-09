@@ -31,7 +31,7 @@
 								$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
 								$_SESSION['sendaddress'] = $sendaddress;
 							}
-							printf('DEUBG Wallet : ' . $_SESSION['sendaddress'] . '<br />');	
+							if(DEBUG) { printf('DEUBG Wallet : ' . $_SESSION['sendaddress'] . '<br />'); }
 							// save current balance
 							saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
 							
