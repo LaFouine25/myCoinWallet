@@ -14,7 +14,7 @@ if (isset($_POST['anon']))
 	$_SESSION['anon'] = $_POST['anon'];
 }
 
-if (isset($_SESSION['username']))
+if (!isset($_SESSION['username']))
 {
 	header('location:index.php');
 }
