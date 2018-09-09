@@ -31,21 +31,23 @@
 								$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
 								$_SESSION['sendaddress'] = $sendaddress;
 							}
-							if(DEBUG) { printf('DEUBG Wallet : ' . $_SESSION['sendaddress'] . '<br />'); }
 							// save current balance
 							saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
 							
+							// Affichage de l'adresse/solde de Wallet du client.
+														
 							$userBalance = $_SESSION['userbalance'];
 							$singleconfirmBalance = number_format($bitcoin->getbalance($_SESSION['username'], 0),8); // set to zero, this is near instant, set to one one on the side of caution
 							if($singleconfirmBalance > 0) {		// user has unconfirmed transactions
 								$unconfirmedBalance = $singleconfirmBalance - $userBalance;
 							}
-							echo "Current Balance: ". $userBalance ."<br />";
+							echo "Wallet : ". $sendaddress ."<br />";
+							echo "Balance: ". $userBalance ."<br />";
 							if((isset($unconfirmedBalance)) && ($unconfirmedBalance > 0)) {
-								echo "Unconfirmed Balance: ". $unconfirmedBalance ."<br />";
+								echo "Balance en attente: ". $unconfirmedBalance ."<br />";
 							}
 							
-							echo "<h2>Recent Transactions:</h2><table>";
+							echo "<h2>Transactions récentes:</h2><table>";
 							$transactions = $bitcoin->listtransactions($_SESSION['username']);
 							foreach($transactions as $trans) {
 								if(isset($trans['account'])) {

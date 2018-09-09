@@ -14,6 +14,11 @@ FORK Version 0.1
 
 ***Cette version sera progressivement traduite en Français.***
 
+A Venir
+- Multi Coins
+- Cryptage BDD
+- Choix utilisateur changement d'adresse/transaction
+
 This is a basic php bitcoin wallet that uses the jsonRPCClient and curl to interface with the bitcoin client.
 It currently can create addresses, send and receive coins.
 

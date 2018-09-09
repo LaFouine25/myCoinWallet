@@ -78,6 +78,10 @@ else
 }
 ?>
 						</table></form>
+						<br />
+						Merci d'utiliser notre Wallet Online. Celui-ci vous permet de sécuriser vos Crypto Coins sans avoir à télécharger l'entier de la BlockChain.<br />
+						Vous pouvez également effectuer des transactions vers d'autres Wallet d'un simple clic.<br />
+						Ce Wallet exploite le Pool de minage : <a href=http://<?php echo SERVER;?> target=blank><?php echo SITENAME;?></a><br />
 					</div>
 				</div>
 			</div>

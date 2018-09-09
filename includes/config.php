@@ -22,4 +22,5 @@ $DBName   = 'xxx';
 // Divers variables conf.
 define('DEBUG', true);
 define('SITENAME', "SITENAME");
+define('MAILSITE', "test [at] test [dot] com");
 ?>

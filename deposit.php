@@ -21,7 +21,6 @@ require_once('includes/bcfunctions.php');
 					<div class="innermargin">
 						<h1><?php printf(SITENAME);?> Deposit</h1>
 						<br />
-						To make a deposit, please send coins to the address below.<br />
 						Pour faire un dépôt, merci d'utiliser cette adresse. Les adresses précédentes sont également valable<br />
 						<?php
 						
