@@ -81,7 +81,7 @@ if (!isset($_SESSION['username']))
 									</div>
 
 								</fieldset>
-								<button type=submit value="Enregistrer" />
+								<button type=submit value=submit>Enregistrer</button>
 							</form>
 							</div>
 							
