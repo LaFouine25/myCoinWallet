@@ -38,12 +38,30 @@ require_once('includes/bcfunctions.php');
 								$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
 								$_SESSION['sendaddress'] = $sendaddress;
 							}
-						} else {
-								$_SESSION['sendaddress'] = $curaddress = $sendaddress = $bitcoin->getaccountaddress($_SESSION['username']);						
+							$DBReq = "UPDATE comptes SET wallet = '" . $_SESSION['sendaddress'] . "' WHERE login LIKE '" . $_SESSION['username'] . "';");
+							$conn->query($DBReq);
+						if(DEBUG) printf("DEBUG: Enregistre en BDD le Wallet avec -> " . $DBReq);
 						}
+						
 						// save current balance
 						saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
-						echo "<b>" . $_SESSION['sendaddress'] . "</b>";
+						echo "<b>" . $_SESSION['sendaddress'] . "</b><br />";
+						
+						// Récupération des autres adresses du compte.
+						$listAddr = $bitcoin->getaddressesbyaccount($_SESSION['username']);
+						$i = 1;
+						if ( count($listAddr) > 1 )
+						{
+							// Dans le cas ou il existe plus d'une adresse sur le compte
+							echo "Voici la liste de vos adresses disponibles<br />";
+							echo "<ul>";
+							while ($i <= count($listAddr))
+							{
+								echo "<li>"$listAddr[$i] . "</li>";
+								$i++;
+							}
+							echo "</ul>";
+						}
 						
 						?>
 					</div>

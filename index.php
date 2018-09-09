@@ -58,6 +58,8 @@ if ( isset($_POST['amuser']) && isset($_POST['ampass']) )
 				$_SESSION['username']	= $_POST['amuser'];
 				$_SESSION['userid']		= time();
 				$_SESSION['anon']		= $row['anonymiser'];
+				$_SESSION['sendaddress']= $curaddress = $sendaddress = $row['wallet'];
+				
 				if(DEBUG) { printf('DEBUG: Session OK <br />');}
 				echo "<script language=javascript>document.location.reload(true);</script>";
 			}

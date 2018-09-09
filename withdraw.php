@@ -3,6 +3,7 @@ session_start();
 require_once('includes/config.php');
 require_once('includes/jsonRPCClient.php');
 require_once('includes/bcfunctions.php');
+require_once('includes/dbconnect.php');
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -35,8 +36,9 @@ require_once('includes/bcfunctions.php');
 									$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
 									$_SESSION['sendaddress'] = $sendaddress;
 								}
-							} else {
-								$_SESSION['sendaddress'] = $curaddress = $sendaddress = $bitcoin->getaccountaddress($_SESSION['username']);
+								$DBReq = "UPDATE comptes SET wallet = '" . $_SESSION['sendaddress'] . "' WHERE login LIKE '" . $_SESSION['username'] . "';");
+								$conn->query($DBReq);
+							if(DEBUG) printf("DEBUG: Enregistre en BDD le Wallet avec -> " . $DBReq);
 							}
 							
 							// save current balance

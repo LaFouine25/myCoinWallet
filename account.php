@@ -65,9 +65,11 @@ if (!isset($_SESSION['username']))
 									$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
 									$_SESSION['sendaddress'] = $sendaddress;
 								}
+								$DBReq = "UPDATE comptes SET wallet = '" . $_SESSION['sendaddress'] . "' WHERE login LIKE '" . $_SESSION['username'] . "';");
+								$conn->query($DBReq);
+							if(DEBUG) printf("DEBUG: Enregistre en BDD le Wallet avec -> " . $DBReq);
 							} else {
 								if(DEBUG) printf("DEBUG: Tjrs la meme addr TX");
-								$_SESSION['sendaddress'] = $curaddress = $sendaddress = $bitcoin->getaccountaddress($_SESSION['username']);
 							}
 							// save current balance
 							saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
@@ -75,6 +77,7 @@ if (!isset($_SESSION['username']))
 							// Affichage de l'adresse/solde de Wallet du client.
 														
 							$userBalance = $_SESSION['userbalance'];
+							
 							$singleconfirmBalance = number_format($bitcoin->getbalance($_SESSION['username'], 0),8); // set to zero, this is near instant, set to one one on the side of caution
 							if($singleconfirmBalance > 0) {		// user has unconfirmed transactions
 								$unconfirmedBalance = $singleconfirmBalance - $userBalance;
@@ -95,8 +98,8 @@ if (!isset($_SESSION['username']))
 										<label for="non">Non</label>
 									</div>
 
-								</fieldset>
 								<button type=submit value=submit>Enregistrer</button>
+								</fieldset>
 							</form>
 							</div>
 							
