@@ -53,8 +53,9 @@ if (!isset($_SESSION['username']))
 							// check for session address
 							
 							// Controle adresse du client avec Anon si besoin
-							if($_SESSION['anon'] == 1)
+							if($_SESSION['anon'] == "1")
 							{
+								if(DEBUG) printf("DEBUG: Anonymisation des TX");
 								if(isset($_SESSION['sendaddress'])) {
 									$sendaddress = refreshAddressIfStale($bitcoin,$_SESSION['sendaddress']); // session exists, check if its been used before
 									$_SESSION['sendaddress'] = $sendaddress;
@@ -65,6 +66,7 @@ if (!isset($_SESSION['username']))
 									$_SESSION['sendaddress'] = $sendaddress;
 								}
 							} else {
+								if(DEBUG) printf("DEBUG: Tjrs la meme addr TX");
 								$_SESSION['sendaddress'] = $curaddress = $sendaddress = $bitcoin->getaccountaddress($_SESSION['username']);
 							}
 							// save current balance
