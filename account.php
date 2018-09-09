@@ -9,7 +9,7 @@ require_once('includes/dbconnect.php');
 // Modification en BDD de la valeur de Anonyme
 if (isset($_POST['anon']))
 {
-	$DBReq = "UPDATE anonymiser FROM comptes WHERE login LIKE '" . $_SESSION['username'] . "';";
+	$DBReq = "UPDATE comptes SET anonymiser = '" . $_POST['anon'] . "' WHERE login LIKE '" . $_SESSION['username'] . "';";
 	$conn->query($DBReq);
 	$_SESSION['anon'] = $_POST['anon'];
 }
@@ -71,13 +71,13 @@ if (!isset($_SESSION['username']))
 									<legend>Changement de Wallet à chaque dépôt ?</legend>
 
 									<div>
-										<input type="radio" id="1" name="anon" <?php if($_SESSION['anon'] == 1) echo "checked";?> />
-										<label for="oui">Oui - traçabilité complexe</label>
+										<input type="radio" id="1" name="anon" <?php if($_SESSION['anon'] == "1") echo "checked";?> />
+										<label for="1">Oui - traçabilité complexe</label>
 									</div>
 
 									<div>
-										<input type="radio" id="0" name="anon" <?php if($_SESSION['anon'] == 0) echo "checked";?>/>
-										<label for="non">Non</label>
+										<input type="radio" id="0" name="anon" <?php if($_SESSION['anon'] == "0") echo "checked";?>/>
+										<label for="0">Non</label>
 									</div>
 
 								</fieldset>
