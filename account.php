@@ -1,4 +1,10 @@
-<?php session_start(); ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<?php
+session_start();
+
+require_once('includes/config.php');
+require_once('includes/jsonRPCClient.php');
+require_once('includes/bcfunctions.php');
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 	<head>
@@ -14,11 +20,7 @@
 					<div class="innermargin">
 						<h1><?php printf(SITENAME);?> Account</h1>
 						<br />
-							<?php
-							require_once('includes/config.php');
-							require_once('includes/jsonRPCClient.php');
-							require_once('includes/bcfunctions.php');
-							
+							<?php							
 							$bitcoin = new jsonRPCClient('http://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);
 							
 							// check for session address
