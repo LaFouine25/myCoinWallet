@@ -36,7 +36,7 @@ require_once('includes/dbconnect.php');
 									$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
 									$_SESSION['sendaddress'] = $sendaddress;
 								}
-								$DBReq = "UPDATE comptes SET wallet = '" . $_SESSION['sendaddress'] . "' WHERE login LIKE '" . $_SESSION['username'] . "';");
+								$DBReq = "UPDATE comptes SET wallet = '" . $_SESSION['sendaddress'] . "' WHERE login LIKE '" . $_SESSION['username'] . "';";
 								$conn->query($DBReq);
 							if(DEBUG) printf("DEBUG: Enregistre en BDD le Wallet avec -> " . $DBReq);
 							}
