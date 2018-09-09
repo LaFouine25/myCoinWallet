@@ -39,9 +39,8 @@ require_once('includes/bcfunctions.php');
 								$_SESSION['sendaddress'] = $sendaddress;
 							}
 						} else {
-							$_SESSION['sendaddress'] = $bitcoin->getaccountaddress($_SESSION['username']);
+								$_SESSION['sendaddress'] = $curaddress = $sendaddress = $bitcoin->getaccountaddress($_SESSION['username']);						
 						}
-
 						// save current balance
 						saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
 						echo "<b>" . $_SESSION['sendaddress'] . "</b>";
