@@ -138,13 +138,13 @@ require_once('includes/bcfunctions.php');
 				<div class="menumargin">
 					<a href='index.php'>Acceuil</a>
 					<a href='account.php'>Compte</a>
-					<a href='deposit.php'>Depos</a>
+					<a href='deposit.php'>Dépôt</a>
 					<a href='withdraw.php'>Transfert</a>
 					<a href='contact.php'>Contact</a>
 					<a href='logout.php'>Logout</a>
 				</div>
 			</div>
-			<div id="footer"><a href="index.php">Acceuil</a> | <a href="account.php">Compte</a> | <a href="deposit.php">Depos</a> | <a href="withdraw.php">Transfert</a> | <a href="contact.php">Contact</a> | <a href="#">Logout</a> | </div>
+			<div id="footer"><a href="index.php">Acceuil</a> | <a href="account.php">Compte</a> | <a href="deposit.php">Dépôt</a> | <a href="withdraw.php">Transfert</a> | <a href="contact.php">Contact</a> | <a href="#">Logout</a> | </div>
 		</div>
 	</body>
 </html>
