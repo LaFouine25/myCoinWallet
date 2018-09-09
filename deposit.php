@@ -45,19 +45,19 @@ require_once('includes/bcfunctions.php');
 						
 						// save current balance
 						saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
-						echo "<b>" . $_SESSION['sendaddress'] . "</b><br />";
+						echo "Votre Wallet courant : <b>" . $_SESSION['sendaddress'] . "</b><br />";
 						
 						// Récupération des autres adresses du compte.
 						$listAddr = $bitcoin->getaddressesbyaccount($_SESSION['username']);
-						$i = 1;
+						$i = 0;
 						if ( count($listAddr) > 1 )
 						{
 							// Dans le cas ou il existe plus d'une adresse sur le compte
 							echo "Voici la liste de vos adresses disponibles<br />";
 							echo "<ul>";
-							while ($i <= count($listAddr))
+							while ($i < count($listAddr))
 							{
-								echo "<li>"$listAddr($i) . "</li>";
+								echo "<li>" . $listAddr[$i] . "</li>";
 								$i++;
 							}
 							echo "</ul>";
