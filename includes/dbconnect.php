@@ -1,9 +1,4 @@
 <?php
-// Connection BDD
-$DBServer = 'localhost'; 
-$DBUser   = 'xxx';
-$DBPass   = 'xxx';
-$DBName   = 'xxx';
 
 // Connection DB
 $conn = new mysqli($DBServer, $DBUser, $DBPass, $DBName);
