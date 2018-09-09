@@ -66,7 +66,7 @@ if (!isset($_SESSION['username']))
 							}
 							?>
 							<div>
-							<form>
+							<form method=POST>
 								<fieldset>
 									<legend>Changement de Wallet à chaque dépôt ?</legend>
 
