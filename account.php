@@ -71,12 +71,12 @@ if (!isset($_SESSION['username']))
 									<legend>Changement de Wallet à chaque dépôt ?</legend>
 
 									<div>
-										<input type="radio" id="oui" name="anon" <?php if($_SESSION['anon'] == 1) echo "checked";?> />
+										<input type="radio" id="1" name="anon" <?php if($_SESSION['anon'] == 1) echo "checked";?> />
 										<label for="oui">Oui - traçabilité complexe</label>
 									</div>
 
 									<div>
-										<input type="radio" id="non" name="anon" <?php if($_SESSION['anon'] == 0) echo "checked";?>/>
+										<input type="radio" id="0" name="anon" <?php if($_SESSION['anon'] == 0) echo "checked";?>/>
 										<label for="non">Non</label>
 									</div>
 
