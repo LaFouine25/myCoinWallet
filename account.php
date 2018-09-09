@@ -23,7 +23,7 @@ if (isset($_POST['anon']))
 	$DBReq = "UPDATE comptes SET anonymiser = '" . $_SESSION['anon'] . "' WHERE login LIKE '" . $_SESSION['username'] . "';";
 	$conn->query($DBReq);
 	
-	if(DEBUG) printf("DEBUG: POST -->" . $_POST['anon'] . ":" . $_POST['oui'] . "<br />");
+	if(DEBUG) printf("DEBUG: POST -->" . $_POST['anon'] . "<br />");
 	if(DEBUG) printf("DEBUG: ErrSQL -->" . $DBReq);
 }
 
