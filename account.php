@@ -4,9 +4,24 @@ session_start();
 require_once('includes/config.php');
 require_once('includes/jsonRPCClient.php');
 require_once('includes/bcfunctions.php');
+require_once('includes/dbconnect.php');
+
+// Modification en BDD de la valeur de Anonyme
+if (isset($_POST['anon']))
+{
+	$DBReq = "UPDATE anonymiser FROM comptes WHERE login LIKE '" . $_SESSION['username'] . "';";
+	$conn->query($DBReq);
+	$_SESSION['anon'] = $_POST['anon'];
+}
+
+if (isset($_SESSION['username']))
+{
+	header('location:index.php');
+}
+
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<title><?php printf(SITENAME);?> - Account</title>
@@ -22,16 +37,22 @@ require_once('includes/bcfunctions.php');
 						<br />
 							<?php							
 							$bitcoin = new jsonRPCClient('http://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);
-							
 							// check for session address
-							if(isset($_SESSION['sendaddress'])) {
-								$sendaddress = refreshAddressIfStale($bitcoin,$_SESSION['sendaddress']); // session exists, check if its been used before
-								$_SESSION['sendaddress'] = $sendaddress;
+							
+							// Controle adresse du client avec Anon si besoin
+							if($_SESSION['anon'] == 1)
+							{
+								if(isset($_SESSION['sendaddress'])) {
+									$sendaddress = refreshAddressIfStale($bitcoin,$_SESSION['sendaddress']); // session exists, check if its been used before
+									$_SESSION['sendaddress'] = $sendaddress;
+								} else {
+									// if address already exists in wallet (or new unfortunately), check the balance and set as main receivable address if zero
+									$curaddress = $bitcoin->getaccountaddress($_SESSION['username']);
+									$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
+									$_SESSION['sendaddress'] = $sendaddress;
+								}
 							} else {
-								// if address already exists in wallet (or new unfortunately), check the balance and set as main receivable address if zero
-								$curaddress = $bitcoin->getaccountaddress($_SESSION['username']);
-								$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
-								$_SESSION['sendaddress'] = $sendaddress;
+								$_SESSION['sendaddress'] = $bitcoin->getaccountaddress($_SESSION['username']);
 							}
 							// save current balance
 							saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
@@ -43,6 +64,28 @@ require_once('includes/bcfunctions.php');
 							if($singleconfirmBalance > 0) {		// user has unconfirmed transactions
 								$unconfirmedBalance = $singleconfirmBalance - $userBalance;
 							}
+							?>
+							<div>
+							<form>
+								<fieldset>
+									<legend>Changement de Wallet à chaque dépôt ?</legend>
+
+									<div>
+										<input type="radio" id="oui" name="anon" <?php if($_SESSION['anon'] == 1) echo "checked";?> />
+										<label for="oui">Oui - traçabilité complexe</label>
+									</div>
+
+									<div>
+										<input type="radio" id="non" name="anon" <?php if($_SESSION['anon'] == 0) echo "checked";?>/>
+										<label for="non">Non</label>
+									</div>
+
+								</fieldset>
+								<button type=submit value="Enregistrer" />
+							</form>
+							</div>
+							
+							<?php							
 							echo "Wallet : ". $sendaddress ."<br />";
 							echo "Balance: ". $userBalance ."<br />";
 							if((isset($unconfirmedBalance)) && ($unconfirmedBalance > 0)) {

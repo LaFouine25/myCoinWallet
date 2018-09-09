@@ -23,15 +23,20 @@ require_once('includes/bcfunctions.php');
 							
 							$bitcoin = new jsonRPCClient('http://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);
 							
-							// check for session address
-							if(isset($_SESSION['sendaddress'])) {
-								$sendaddress = refreshAddressIfStale($bitcoin,$_SESSION['sendaddress']); // session exists, check if its been used before
-								$_SESSION['sendaddress'] = $sendaddress;
+							// Controle adresse du client avec Anon si besoin
+							if($_SESSION['anon'] == 1)
+							{
+								if(isset($_SESSION['sendaddress'])) {
+									$sendaddress = refreshAddressIfStale($bitcoin,$_SESSION['sendaddress']); // session exists, check if its been used before
+									$_SESSION['sendaddress'] = $sendaddress;
+								} else {
+									// if address already exists in wallet (or new unfortunately), check the balance and set as main receivable address if zero
+									$curaddress = $bitcoin->getaccountaddress($_SESSION['username']);
+									$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
+									$_SESSION['sendaddress'] = $sendaddress;
+								}
 							} else {
-								// if address already exists in wallet (or new unfortunately), check the balance and set as main receivable address if zero
-								$curaddress = $bitcoin->getaccountaddress($_SESSION['username']);
-								$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
-								$_SESSION['sendaddress'] = $sendaddress;
+								$_SESSION['sendaddress'] = $bitcoin->getaccountaddress($_SESSION['username']);
 							}
 							
 							// save current balance
@@ -86,13 +91,13 @@ require_once('includes/bcfunctions.php');
 				<div class="menumargin">
 					<a href='index.php'>Acceuil</a>
 					<a href='account.php'>Compte</a>
-					<a href='deposit.php'>dépôt</a>
+					<a href='deposit.php'>Dépôt</a>
 					<a href='withdraw.php'>Transfert</a>
 					<a href='contact.php'>Contact</a>
 					<a href='logout.php'>Logout</a>
 				</div>
 			</div>
-			<div id="footer"><a href="index.php">Acceuil</a> | <a href="account.php">Compte</a> | <a href="deposit.php">dépôt</a> | <a href="withdraw.php">Transfert</a> | <a href="contact.php">Contact</a> | <a href="#">Logout</a> | </div>
+			<div id="footer"><a href="index.php">Acceuil</a> | <a href="account.php">Compte</a> | <a href="deposit.php">Dépôt</a> | <a href="withdraw.php">Transfert</a> | <a href="contact.php">Contact</a> | <a href="#">Logout</a> | </div>
 		</div>
 	</body>
 </html>

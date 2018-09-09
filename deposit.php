@@ -26,15 +26,20 @@ require_once('includes/bcfunctions.php');
 						
 						$bitcoin = new jsonRPCClient('http://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);
 						
-						// check for session address
-						if(isset($_SESSION['sendaddress'])) {
-							$sendaddress = refreshAddressIfStale($bitcoin,$_SESSION['sendaddress']); // session exists, check if its been used before
-							$_SESSION['sendaddress'] = $sendaddress;
+						// Controle adresse du client avec Anon si besoin
+						if($_SESSION['anon'] == 1)
+						{
+							if(isset($_SESSION['sendaddress'])) {
+								$sendaddress = refreshAddressIfStale($bitcoin,$_SESSION['sendaddress']); // session exists, check if its been used before
+								$_SESSION['sendaddress'] = $sendaddress;
+							} else {
+								// if address already exists in wallet (or new unfortunately), check the balance and set as main receivable address if zero
+								$curaddress = $bitcoin->getaccountaddress($_SESSION['username']);
+								$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
+								$_SESSION['sendaddress'] = $sendaddress;
+							}
 						} else {
-							// if address already exists in wallet (or new unfortunately), check the balance and set as main receivable address if zero
-							$curaddress = $bitcoin->getaccountaddress($_SESSION['username']);
-							$sendaddress = refreshAddressIfStale($bitcoin,$curaddress);
-							$_SESSION['sendaddress'] = $sendaddress;
+							$_SESSION['sendaddress'] = $bitcoin->getaccountaddress($_SESSION['username']);
 						}
 
 						// save current balance

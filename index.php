@@ -24,18 +24,18 @@ require_once('includes/dbconnect.php');
 					<div class="innermargin">
 						<h1>Login - <?php printf(SITENAME);?></h1>
 						<br />
-						<form>
+						<form method=POST>
 							Login: <input type="text" name="amuser" size="20" required><br />
 							MDP: <input type="password" name="ampass" size="20" required><br />
 							<input type="submit" value="submit" /><br /><br />
 							<?php
-if ( isset($_GET['amuser']) && isset($_GET['ampass']) )
+if ( isset($_POST['amuser']) && isset($_POST['ampass']) )
 {
 	// Recherche si Wallet existe en local et si associe à un compte
 	if ($DBIsCo)
 	{
 		if(DEBUG) { printf("DEBUG: Co OK<br />\r\n"); }
-		$DBReq	= 'SELECT wallet FROM comptes WHERE login LIKE "' . $_GET['amuser'] . '" AND mdp LIKE "' . $_GET['ampass'] . '";';
+		$DBReq	= 'SELECT wallet, anonymiser FROM comptes WHERE login LIKE "' . $_POST['amuser'] . '" AND mdp LIKE "' . $_POST['ampass'] . '";';
 		$rs = $conn->query($DBReq);
  
 		if($rs === false)
@@ -55,8 +55,9 @@ if ( isset($_GET['amuser']) && isset($_GET['ampass']) )
 					//$_SESSION['sendaddress'] = $row['wallet'];
 					printf('Wallet: ' . $row['wallet'] . '<br />');
 				}
-				$_SESSION['username'] = $_GET['amuser'];
-				$_SESSION['userid'] = time();
+				$_SESSION['username']	= $_POST['amuser'];
+				$_SESSION['userid']		= time();
+				$_SESSION['anon']		= $row['anonymiser'];
 				if(DEBUG) { printf('DEBUG: Session OK <br />');}
 				echo "<script language=javascript>document.location.reload(true);</script>";
 			}
