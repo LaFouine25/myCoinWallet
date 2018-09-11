@@ -52,7 +52,7 @@ require_once('includes/dbconnect.php');
 							$userBalance = $_SESSION['userbalance'];
 							$estimatefee = $bitcoin->estimatesmartfee(6);
 							
-							if (DEBUG) printf("DEBUG: Var $estimatefee -->" . number_format($estimatefee["feerate"], 8) . "<br />");
+							if (DEBUG) printf('DEBUG: Var $estimatefee -->' . number_format($estimatefee["feerate"], 8) . '<br />');
 							
 							// check for post request
 							if(isset($_POST['sendaddress'])) {
