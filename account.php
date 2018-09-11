@@ -182,13 +182,13 @@ if (!isset($_SESSION['username']))
 								$transtimereceived = $trans['timereceived'];
 								*/
 								
-								echo "<tr><td>Address:</td><td>". $transaddress ."</td></tr>";
-								echo "<tr><td>Amount:</td><td>". number_format($transamount, 8) ."</td></tr>";
-								echo "<tr><td>Category:</td><td>". $transcategory ."</td></tr>";
+								echo "<tr><td>Adresss:</td><td>". $transaddress ."</td></tr>";
+								echo "<tr><td>Montant:</td><td>". number_format($transamount, 8) ."</td></tr>";
+								echo "<tr><td>Categorie:</td><td>". $transcategory ."</td></tr>";
 								echo "<tr><td>Confirmations:</td><td>". $transconfirmations ."</td></tr>";
 								echo "<tr><td>Blockhash:</td><td>". $transblockhash ."</td></tr>";
 								echo "<tr><td>txid:</td><td>". $transtxid ."</td></tr>";
-								echo "<tr><td>Time:</td><td>". date("Y - M - d H:i:s", $transtime) ."</td></tr>";
+								echo "<tr><td>Date:</td><td>". date("Y - M - d H:i:s", $transtime) ."</td></tr>";
 								echo "<tr><td>&nbsp;</td></tr>";
 							}
 							?>
