@@ -57,7 +57,7 @@ require_once('includes/bcfunctions.php');
 							echo "<ul>";
 							while ($i < count($listAddr))
 							{
-								echo "<li>" . $listAddr[$i] . " --> " . $bitcoin->getaddressbalance($listAddr[$i]) . "</li>";
+								echo "<li>" . $listAddr[$i] . "</li>";
 								$i++;
 							}
 							echo "</ul>";
