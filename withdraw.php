@@ -50,6 +50,7 @@ require_once('includes/dbconnect.php');
 							saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
 							
 							$userBalance = $_SESSION['userbalance'];
+							$estimatefee = $bitcoin->estimatesmartfee(6);
 							
 							// check for post request
 							if(isset($_POST['sendaddress'])) {
@@ -59,8 +60,8 @@ require_once('includes/dbconnect.php');
 									//echo $postSendAddress;
 									//echo $postSendAmount;
 									
-									if($postSendAmount > $_SESSION['userbalance']) { // they tried to send more money than they have this is possible as accounts can go negative
-										echo "<font color='red'><b>Vous ne pouvez pas envoyer de Coins, votre compte est vide!</b></font>";
+									if($postSendAmount + $estimatefee > $_SESSION['userbalance']) { // they tried to send more money than they have this is possible as accounts can go negative
+										echo "<font color='red'><b>Vous ne pouvez pas envoyer de Coins, la somme envoyé dépasse votre solde!</b></font>";
 									} elseif($postSendAmount < 0) {	// they tried to send a negative number
 										echo "<font color='red'><b>Essayez d'être positif.</b></font>";
 									} else {	// probably should be more error checking here, todo or something
@@ -78,17 +79,18 @@ require_once('includes/dbconnect.php');
 							
 							$userBalance = $_SESSION['userbalance'];
 							
-							echo "Solde disponible: ". $userBalance ."<br />";
+							echo "Solde disponible: " . $userBalance . "<br />";
+							echo "TX Fee Blockchain: "  . $estimatefee[0] . "<br />";
 							
 							// echo send form
 							echo "Actuellement, ";
 							if($userBalance > 0) {
 								echo "Vous pouvez envoyer des fonds.<form id=\"sendfund\" name=\"sendfund\" method=\"post\" action=\"withdraw.php\">
 								Adresse <input name=\"sendaddress\" type=\"text\" id=\"textfield\" value=\"\" size=\"50\" /><br />
-								Montant <input name=\"sendamount\" type=\"text\" id=\"textfield\" value=\"\" size=\"10\" />
+								Montant <input name=\"sendamount\" type=\"text\" id=\"textfield\" value=\"\" size=\"10\" /> (<i>sans les txfees</i>)
 								<input type=\"submit\" name=\"button\" id=\"button\" value=\"Envoyer\" /></form>";
 							} else {
-								echo "Vous ne pouvez pas envoyer de RavenCoin, si vous venez dans déposez sur votre Wallet, il faut attendre 100 confirmations pour que puissiez les envoyer à nouveau.<br />";
+								echo "Vous ne pouvez pas envoyer de RavenCoin, si vous venez dans déposer sur votre Wallet, il faut attendre en moyenne 6 confirmations (<i>6 minutes</i>) pour que puissiez les envoyer à nouveau.<br />";
 							}
 							?>
 					</div>
