@@ -32,6 +32,7 @@ require_once('includes/bcfunctions.php');
 							<li>Par mail : <?php echo MAILSITE;?></li>
 						</ul>
 						<?php
+						$bitcoin = new jsonRPCClient('http://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);
 						
 						// save current balance
 						saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
