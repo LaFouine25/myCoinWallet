@@ -50,9 +50,9 @@ require_once('includes/dbconnect.php');
 							saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
 							
 							$userBalance = $_SESSION['userbalance'];
-							$estimatefee = $bitcoin->estimatesmartfee("6");
+							$estimatefee = $bitcoin->estimatesmartfee(6);
 							
-							if (DEBUG) printf("DEBUG: Var $estimatefee -->" . $estimatefee);
+							if (DEBUG) printf("DEBUG: Var $estimatefee -->" . number_format($estimatefee["feerate"], 8) . "<br />");
 							
 							// check for post request
 							if(isset($_POST['sendaddress'])) {
@@ -62,7 +62,7 @@ require_once('includes/dbconnect.php');
 									//echo $postSendAddress;
 									//echo $postSendAmount;
 									
-									if($postSendAmount + $estimatefee > $_SESSION['userbalance']) { // they tried to send more money than they have this is possible as accounts can go negative
+									if($postSendAmount + $estimatefee["feerate"] > $_SESSION['userbalance']) { // they tried to send more money than they have this is possible as accounts can go negative
 										echo "<font color='red'><b>Vous ne pouvez pas envoyer de Coins, la somme envoyé dépasse votre solde!</b></font>";
 									} elseif($postSendAmount < 0) {	// they tried to send a negative number
 										echo "<font color='red'><b>Essayez d'être positif.</b></font>";
@@ -82,7 +82,7 @@ require_once('includes/dbconnect.php');
 							$userBalance = $_SESSION['userbalance'];
 							
 							echo "Solde disponible: " . $userBalance . "<br />";
-							echo "TX Fee Blockchain: "  . $estimatefee[0] . "<br />";
+							echo "TX Fee Blockchain: "  . number_format($estimatefee["feerate"], 8) . "<br />";
 							
 							// echo send form
 							echo "Actuellement, ";
