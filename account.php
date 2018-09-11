@@ -67,8 +67,9 @@ if (!isset($_SESSION['username']))
 								}
 								$DBReq = "UPDATE comptes SET wallet = '" . $_SESSION['sendaddress'] . "' WHERE login LIKE '" . $_SESSION['username'] . "';";
 								$conn->query($DBReq);
-							if(DEBUG) printf("DEBUG: Enregistre en BDD le Wallet avec -> " . $DBReq);
+								if(DEBUG) printf("DEBUG: Enregistre en BDD le Wallet avec -> " . $DBReq);
 							} else {
+								$curaddress = $sendaddress = $_SESSION ['sendaddress'];
 								if(DEBUG) printf("DEBUG: Tjrs la meme addr TX");
 							}
 							// save current balance
