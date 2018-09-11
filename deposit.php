@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+if(!isset($_SESSION['username']))
+	header('location:index.php');
+
 require_once('includes/config.php');
 require_once('includes/jsonRPCClient.php');
 require_once('includes/bcfunctions.php');

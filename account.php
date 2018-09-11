@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['username']))
+{
+	header('location:index.php');
+}
+
 require_once('includes/config.php');
 require_once('includes/jsonRPCClient.php');
 require_once('includes/bcfunctions.php');
@@ -25,11 +30,6 @@ if (isset($_POST['anon']))
 	
 	if(DEBUG) printf("DEBUG: POST -->" . $_POST['anon'] . "<br />");
 	if(DEBUG) printf("DEBUG: ErrSQL -->" . $DBReq);
-}
-
-if (!isset($_SESSION['username']))
-{
-	header('location:index.php');
 }
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

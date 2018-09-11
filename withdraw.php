@@ -1,9 +1,14 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['username']))
+	header('location:index.php');
+
 require_once('includes/config.php');
 require_once('includes/jsonRPCClient.php');
 require_once('includes/bcfunctions.php');
 require_once('includes/dbconnect.php');
+
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
