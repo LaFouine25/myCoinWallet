@@ -50,7 +50,9 @@ require_once('includes/dbconnect.php');
 							saveCurrentBalance($bitcoin, $_SESSION['sendaddress']);
 							
 							$userBalance = $_SESSION['userbalance'];
-							$estimatefee = $bitcoin->estimatesmartfee(6);
+							$estimatefee = $bitcoin->estimatesmartfee("6");
+							
+							if (DEBUG) printf("DEBUG: Var $estimatefee -->" . $estimatefee);
 							
 							// check for post request
 							if(isset($_POST['sendaddress'])) {
