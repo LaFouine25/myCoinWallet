@@ -57,7 +57,18 @@ if ( isset($_POST['amuser']) && isset($_POST['ampass']) )
 				}
 				$_SESSION['username']	= $_POST['amuser'];
 				$_SESSION['userid']		= time();
-				$_SESSION['anon']		= int($row['anonymiser']);
+				
+				switch ($row['anonymiser'])
+				{
+					case "1":
+						$_SESSION['anon'] = 1;
+						break;
+					case "0":
+						$_SESSION['anon'] = 0;
+						break;
+					default:
+						$_SESSION['anon'] = 0;
+				}
 				
 				if(DEBUG) { printf('DEBUG: Session OK <br />');}
 				echo "<script language=javascript>document.location.reload(true);</script>";
