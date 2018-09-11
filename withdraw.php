@@ -73,15 +73,15 @@ require_once('includes/dbconnect.php');
 							
 							$userBalance = $_SESSION['userbalance'];
 							
-							echo "Current Balance: ". $userBalance ."<br />";
+							echo "Solde disponible: ". $userBalance ."<br />";
 							
 							// echo send form
 							echo "Actuellement, ";
 							if($userBalance > 0) {
 								echo "Vous pouvez envoyer des fonds.<form id=\"sendfund\" name=\"sendfund\" method=\"post\" action=\"withdraw.php\">
-								Address <input name=\"sendaddress\" type=\"text\" id=\"textfield\" value=\"\" size=\"50\" /><br />
-								Amount &nbsp;<input name=\"sendamount\" type=\"text\" id=\"textfield\" value=\"\" size=\"10\" />
-								<input type=\"submit\" name=\"button\" id=\"button\" value=\"Send\" /></form>";
+								Adresse <input name=\"sendaddress\" type=\"text\" id=\"textfield\" value=\"\" size=\"50\" /><br />
+								Montant <input name=\"sendamount\" type=\"text\" id=\"textfield\" value=\"\" size=\"10\" />
+								<input type=\"submit\" name=\"button\" id=\"button\" value=\"Envoyer\" /></form>";
 							} else {
 								echo "Vous ne pouvez pas envoyer de RavenCoin, si vous venez dans déposez sur votre Wallet, il faut attendre 100 confirmations pour que puissiez les envoyer à nouveau.<br />";
 							}
