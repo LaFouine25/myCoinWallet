@@ -1,7 +1,11 @@
 Fork de myCoinWallet avec quelques modifications :
 
-Version 0.1.x (en cours)
+Version 0.1.2
 - Choix utilisateur changement d'adresse/transaction
+- Ajout gestion des Fee Blockchain lors d'un envoi
+- Diverses traduction Français
+- Ajout d'un retour en index.php si session HS
+- Affichage de toutes les adresses associé au compte
 
 Version 0.1.1
 - Ajout fichier INSTALL
