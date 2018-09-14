@@ -43,6 +43,7 @@ if ( isset($_POST['amuser']) && isset($_POST['ampass']) && isset($_POST['ammail'
  
 		if($rs === false)
 		{
+			if (DEBUG) printf("DEBUG: Création d'un compte");
 			// Le Mail ET le Login ne sont pas déjà utilisé, on peut créer le compte ET le Wallet
 			$bitcoin = new jsonRPCClient('http://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);
 			
@@ -55,20 +56,17 @@ if ( isset($_POST['amuser']) && isset($_POST['ampass']) && isset($_POST['ammail'
 			// Requete
 			$DBReq = "INSERT INTO comptes VALUES ('$curaddress', 'RVN', '$login', '$mdp', '0', '$email');";
 			$rs = $conn->query($DBReq);
+			if (DEBUG) printf("DEBUG: DBReq = " . $DBReq);
 			
 			// Envoi d'un mail de récap.
 			mail($email, "Bienvenue sur le Wallet " . SITENAME, "Votre inscription a bien été prise en compte $login");
 		}
 		else
 		{
-			$rows_returned = $rs->num_rows;
-			if ($rows_returned == 1)
-			{
-				?>
-				<br />
-				Le Login et/ou le Mail que vous avez utilisé existe déjà en base, merci d'en choisir un(des) autre(s).<br />
-				<?php
-			}
+			?>
+			<br />
+			Le Login et/ou le Mail que vous avez utilisé existe déjà en base, merci d'en choisir un(des) autre(s).<br />
+			<?php
 		}
 	}
 }
