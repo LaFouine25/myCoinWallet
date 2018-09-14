@@ -63,6 +63,8 @@ if ( isset($_POST['amuser']) && isset($_POST['ampass']) && isset($_POST['ammail'
 			
 			// Envoi d'un mail de récap.
 			mail($email, "Bienvenue sur le Wallet " . SITENAME, "Votre inscription a bien été prise en compte $login");
+			
+			echo "<br /><br /><a href=index.php>Vous pouvez retourner à l'accueil</a><br /><br />";
 		}
 		else
 		{
