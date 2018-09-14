@@ -3,3 +3,11 @@ HOW TO INSTALL
 - depuis votre répertoire Web (/var/web/ par exemple)
 - git clone https://github.com/LaFouine25/myCoinWallet.git
 - modifier le fichier includes/config.php
+
+HOW TO UPDATE
+
+- depuis votre répertoire Web (/var/web/ par exemple)
+- renomer le fichier includes/config.php en includes/config.php.backup
+- git fetch
+- git merge
+- reprendre les valeurs de config.php.backup pour les remettre dans config.php
