@@ -38,12 +38,13 @@ if ( isset($_POST['amuser']) && isset($_POST['ampass']) && isset($_POST['ammail'
 	if ($DBIsCo)
 	{
 		if(DEBUG) { printf("DEBUG: Co OK<br />\r\n"); }
-		$DBReq	= 'SELECT 1 FROM comptes WHERE login LIKE "' . addslashes($_POST['amuser']) . '" OR email LIKE "' . addslashes($_POST['ammail']) . '";';
+		$DBReq	= 'SELECT wallet FROM comptes WHERE login LIKE "' . addslashes($_POST['amuser']) . '" OR email LIKE "' . addslashes($_POST['ammail']) . '";';
 		$rs = $conn->query($DBReq);
 		
 		if (DEBUG) printf("DEBUG: DBReq = " . $DBReq);
  
-		if($rs === false)
+		$rows_returned = $rs->num_rows;
+		if ($rows_returned == 0)
 		{
 			if (DEBUG) printf("DEBUG: Création d'un compte");
 			// Le Mail ET le Login ne sont pas déjà utilisé, on peut créer le compte ET le Wallet
