@@ -38,7 +38,7 @@ if ( isset($_POST['amuser']) && isset($_POST['ampass']) && isset($_POST['ammail'
 	if ($DBIsCo)
 	{
 		if(DEBUG) { printf("DEBUG: Co OK<br />\r\n"); }
-		$DBReq	= 'SELECT 1 FROM comptes WHERE login LIKE "' . mysqli_real_escape_string($_POST['amuser']) . '" OR email LIKE "' . mysqli_real_escape_string()$_POST['ammail']) . '";';
+		$DBReq	= 'SELECT 1 FROM comptes WHERE login LIKE "' . mysqli_real_escape_string($_POST['amuser']) . '" OR email LIKE "' . mysqli_real_escape_string($_POST['ammail']) . '";';
 		$rs = $conn->query($DBReq);
  
 		if($rs === false)
