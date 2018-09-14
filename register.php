@@ -38,7 +38,7 @@ if ( isset($_POST['amuser']) && isset($_POST['ampass']) && isset($_POST['ammail'
 	if ($DBIsCo)
 	{
 		if(DEBUG) { printf("DEBUG: Co OK<br />\r\n"); }
-		$DBReq	= 'SELECT 1 FROM comptes WHERE login LIKE "' . mysqli_real_escape_string($_POST['amuser']) . '" OR email LIKE "' . mysqli_real_escape_string($_POST['ammail']) . '";';
+		$DBReq	= 'SELECT 1 FROM comptes WHERE login LIKE "' . addslashes($_POST['amuser']) . '" OR email LIKE "' . addslashes($_POST['ammail']) . '";';
 		$rs = $conn->query($DBReq);
  
 		if($rs === false)
@@ -48,10 +48,10 @@ if ( isset($_POST['amuser']) && isset($_POST['ampass']) && isset($_POST['ammail'
 			$bitcoin = new jsonRPCClient('http://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);
 			
 			// Définition variables
-			$curaddress = $bitcoin->getaccountaddress($_POST['amuser']);
-			$login 		= mysqli_real_escape_string($_POST['amuser']);
-			$mdp		= mysqli_real_escape_string($_POST['ampass']);
-			$email		= mysqli_real_escape_string($_POST['ammail']);
+			$curaddress = $bitcoin->getaccountaddress(addslashes($_POST['amuser']));
+			$login 		= addslashes($_POST['amuser']);
+			$mdp		= addslashes($_POST['ampass']);
+			$email		= addslashes($_POST['ammail']);
 			
 			// Requete
 			$DBReq = "INSERT INTO comptes VALUES ('$curaddress', 'RVN', '$login', '$mdp', '0', '$email');";
