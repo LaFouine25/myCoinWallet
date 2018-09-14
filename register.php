@@ -6,6 +6,8 @@ if ( isset($_SESSION['username']) )
 	header('location:account.php');
 }
 require('includes/config.php');
+require_once('includes/jsonRPCClient.php');
+require_once('includes/bcfunctions.php');
 require_once('includes/dbconnect.php');
 ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -13,7 +15,7 @@ require_once('includes/dbconnect.php');
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<title>Wallet <?php printf(SITENAME);?></title>
+		<title>Register Wallet <?php printf(SITENAME);?></title>
 		<link rel="stylesheet" href="css/styles.css"  type="text/css" />
 	</head>
 	<body>
@@ -27,66 +29,47 @@ require_once('includes/dbconnect.php');
 						<form method=POST>
 							Login: <input type="text" name="amuser" size="20" required><br />
 							MDP: <input type="password" name="ampass" size="20" required><br />
+							Email: <input type="text" name="ammail" size="20" required><br />
 							<input type="submit" value="submit" /><br /><br />
 							<?php
-if ( isset($_POST['amuser']) && isset($_POST['ampass']) )
+if ( isset($_POST['amuser']) && isset($_POST['ampass']) && isset($_POST['ammail']) )
 {
 	// Recherche si Wallet existe en local et si associe à un compte
 	if ($DBIsCo)
 	{
 		if(DEBUG) { printf("DEBUG: Co OK<br />\r\n"); }
-		$DBReq	= 'SELECT wallet, anonymiser FROM comptes WHERE login LIKE "' . $_POST['amuser'] . '" AND mdp LIKE "' . $_POST['ampass'] . '";';
+		$DBReq	= 'SELECT 1 FROM comptes WHERE login LIKE "' . mysql_real_escape_string($_POST['amuser']) . '" OR email LIKE "' . mysql_real_escape_string($_POST['ammail']) . '";';
 		$rs = $conn->query($DBReq);
  
 		if($rs === false)
 		{
-			// Login/MDP erreur, on propose l'enregistrement.
-			if(DEBUG) { printf('DEBUG: SQL Co Err.'); }
-			trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+			// Le Mail ET le Login ne sont pas déjà utilisé, on peut créer le compte ET le Wallet
+			$bitcoin = new jsonRPCClient('http://' . USER . ':' . PASS . '@' . SERVER . ':' . PORT .'/',false);
+			
+			// Définition variables
+			$curaddress = $bitcoin->getaccountaddress($_POST['amuser']);
+			$login 		= mysql_real_escape_string($_POST['amuser']);
+			$mdp		= mysql_real_escape_string($_POST['ampass']);
+			$email		= mysql_real_escape_string($_POST['ammail']);
+			
+			// Requete
+			$DBReq = "INSERT INTO comptes VALUES ('$curaddress', 'RVN', '$login', '$mdp', '0', '$email');";
+			$rs = $conn->query($DBReq);
+			
+			// Envoi d'un mail de récap.
+			mail($email, "Bienvenue sur le Wallet " . SITENAME, "Votre inscription a bien été prise en compte $login");
 		}
 		else
 		{
 			$rows_returned = $rs->num_rows;
 			if ($rows_returned == 1)
 			{
-				$rs->data_seek(0);
-				while($row = $rs->fetch_assoc())
-				{
-					$_SESSION['sendaddress']= $curaddress = $sendaddress = $row['wallet'];
-					printf('Wallet: ' . $row['wallet'] . '<br />');
-				}
-				$_SESSION['username']	= $_POST['amuser'];
-				$_SESSION['userid']		= time();
-				
-				switch ($row['anonymiser'])
-				{
-					case "1":
-						$_SESSION['anon'] = 1;
-						break;
-					case "0":
-						$_SESSION['anon'] = 0;
-						break;
-					default:
-						$_SESSION['anon'] = 0;
-				}
-				
-				if(DEBUG) { printf('DEBUG: Session OK <br />');}
-				echo "<script language=javascript>document.location.reload(true);</script>";
-			}
-			else
-			{
-				if(DEBUG) {printf('DEBUG: Erreur LogMdp.' . $DBReq);}
-				echo "<b>Erreur couple Login/MDP</b><br />";
+				?>
+				<br />
+				Le Login et/ou le Mail que vous avez utilisé existe déjà en base, merci d'en choisir un(des) autre(s).<br />
+				<?php
 			}
 		}
-	}
-}
-else
-{
-	//Rien n'est saisie dans le formulaire
-	if ( isset($_SESSION['username']) )
-	{
-		if(DEBUG) { printf('DEBUG: ' . $_SESSION['username']); }
 	}
 }
 ?>

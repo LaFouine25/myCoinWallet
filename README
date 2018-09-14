@@ -1,5 +1,8 @@
 Fork de myCoinWallet avec quelques modifications :
 
+Version 0.1.3
+- Ajout création de compte
+
 Version 0.1.2
 - Choix utilisateur changement d'adresse/transaction
 - Ajout gestion des Fee Blockchain lors d'un envoi
